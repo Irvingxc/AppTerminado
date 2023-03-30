@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">PlasenciaCigar</string>
+    <string name="navigation_drawer_open">Abrir</string>
+    <string name="navigation_drawer_close">Cerrar</string>
+    <string name="nav_header_title">Plasencia Cigar</string>
+    <string name="nav_header_subtitle">Reportes diarios</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Procesar</string>
+
+    <string name="menu_home">Inicio</string>
+    <string name="menu_gallery">Pendiente</string>
+    <string name="menu_slideshow">Ajustes</string>
+    <string name="menu_registrar">Inicio</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistroDiarios">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="25dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        tools:ignore="MissingConstraints"
+        android:background="@drawable/card">
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:text="Detalles del Producto"
+                />
+
+            <EditText
+                android:id="@+id/marca"
+                android:inputType="none"
+                android:enabled="false"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Marca"/>
+
+            <EditText
+                android:id="@+id/vitola"
+                android:inputType="none"
+                android:enabled="false"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Vitola"/>
+
+            <EditText
+                android:id="@+id/capa"
+                android:inputType="none"
+                android:enabled="false"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Capa"/>
+
+            <EditText
+                android:id="@+id/tipoempaque"
+                android:inputType="none"
+                android:enabled="false"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Tipo de empaque"/>
+
+            <EditText
+                android:id="@+id/item"
+                android:inputType="none"
+                android:enabled="false"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Item"/>
+
+            <EditText
+                android:id="@+id/orden"
+                android:inputType="none"
+                android:enabled="false"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Orden"/>
+
+            <EditText
+                android:id="@+id/numorden"
+                android:inputType="none"
+                android:enabled="false"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="# Orden"/>
+
+            <EditText
+                android:id="@+id/cantidadPuros"
+                android:layout_width="match_parent"
+                android:numeric="integer"
+                android:layout_height="60dp"
+                android:hint="Cantidad de Puros"/>
+
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/registerAct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="@dimen/fab_margin"
+                android:layout_marginBottom="16dp"
+                app:srcCompat="@android:drawable/ic_menu_send"
+                tools:ignore="MissingConstraints" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
