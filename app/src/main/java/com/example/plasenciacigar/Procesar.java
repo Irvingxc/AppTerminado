@@ -117,7 +117,7 @@ public class Procesar extends Fragment {
 
             @Override
             public void onFailure(Call<DetalleProgramacionTerminado> call, Throwable t) {
-                Toast.makeText(getContext(), "Error de conexion. Contacte al administrador de Sistema(Luis).", Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(), "Error de conexion. Contacte al administrador de Sistema(Luis).", Toast.LENGTH_LONG);
             }
         });
     }

@@ -6,6 +6,7 @@ import com.example.plasenciacigar.models.DetalleTerminadoDiarios;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -20,4 +21,7 @@ public interface DetalleProgramacionTerminadoApi {
 
     @GET("diarios/mostrardetalle/{fecha}")
     Call<List<DetalleProgramacionTerminado>> mostrardetallefecha(@Path("fecha") String fecha);
+
+    @GET("diarios/delete/{id}")
+    Call<DetalleProgramacionTerminado> delete(@Path("id") String id);
 }

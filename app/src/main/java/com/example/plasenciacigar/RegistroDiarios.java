@@ -106,56 +106,60 @@ public class RegistroDiarios extends AppCompatActivity {
 
 
     private void Consulta(int id){
-        Retrofit retrofit = conexion.retrofit();
-        DetalleProgramacionTerminadoApi detalleProgramacionTerminadoApi = retrofit.create(DetalleProgramacionTerminadoApi.class);
-        detalleProgramacionTerminadoApi.getProducto(id).enqueue(new Callback<DetalleProgramacionTerminado>() {
-            @Override
-            public void onResponse(Call<DetalleProgramacionTerminado> call, Response<DetalleProgramacionTerminado> response) {
-                if (response.isSuccessful()){
-                    DetalleProgramacionTerminado dd = response.body();
-                    iddetalleprogramacionterminado = id;
-                    orden.setText(dd.getOrden());
-                    marca.setText(dd.getMarca());
-                    vitola.setText(dd.getVitola());
-                    capa.setText(dd.getCapa());
-                    tipoempaque.setText(dd.getTipoempaque());
-                    numorden.setText(dd.getNumero_orden());
-                    item.setText(dd.getItem());
-                }else{
-                    Toast.makeText(RegistroDiarios.this, "Algo Salio Mal, Consulta con el Administrador de Sistema", Toast.LENGTH_LONG).show();
+            Retrofit retrofit = conexion.retrofit();
+            DetalleProgramacionTerminadoApi detalleProgramacionTerminadoApi = retrofit.create(DetalleProgramacionTerminadoApi.class);
+            detalleProgramacionTerminadoApi.getProducto(id).enqueue(new Callback<DetalleProgramacionTerminado>() {
+                @Override
+                public void onResponse(Call<DetalleProgramacionTerminado> call, Response<DetalleProgramacionTerminado> response) {
+                    if (response.isSuccessful()) {
+                        DetalleProgramacionTerminado dd = response.body();
+                        iddetalleprogramacionterminado = id;
+                        orden.setText(dd.getOrden());
+                        marca.setText(dd.getMarca());
+                        vitola.setText(dd.getVitola());
+                        capa.setText(dd.getCapa());
+                        tipoempaque.setText(dd.getTipoempaque());
+                        numorden.setText(dd.getNumero_orden());
+                        item.setText(dd.getItem());
+                    } else {
+                        Toast.makeText(RegistroDiarios.this, "Algo Salio Mal, Consulta con el Administrador de Sistema", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<DetalleProgramacionTerminado> call, Throwable t) {
-                Toast.makeText(RegistroDiarios.this, String.valueOf(t), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<DetalleProgramacionTerminado> call, Throwable t) {
+                    Toast.makeText(RegistroDiarios.this, String.valueOf(t), Toast.LENGTH_SHORT).show();
+                }
+            });
     }
 
     private void Register(DetalleTerminadoDiarios detalleTerminadoDiarios){
-        Retrofit retrofit = conexion.retrofit();
-        DetalleProgramacionTerminadoApi detalleProgramacionTerminadoApi = retrofit.create(DetalleProgramacionTerminadoApi.class);
-        detalleProgramacionTerminadoApi.addetalle(detalleTerminadoDiarios).enqueue(
-                new Callback<DetalleTerminadoDiarios>() {
-                    @Override
-                    public void onResponse(Call<DetalleTerminadoDiarios> call, Response<DetalleTerminadoDiarios> response) {
-                        Toast.makeText(RegistroDiarios.this, "Se registro correctamente", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(RegistroDiarios.this, MainActivity.class);
+        if (detalleTerminadoDiarios.getId_det_progra_term() > 0) {
+            Retrofit retrofit = conexion.retrofit();
+            DetalleProgramacionTerminadoApi detalleProgramacionTerminadoApi = retrofit.create(DetalleProgramacionTerminadoApi.class);
+            detalleProgramacionTerminadoApi.addetalle(detalleTerminadoDiarios).enqueue(
+                    new Callback<DetalleTerminadoDiarios>() {
+                        @Override
+                        public void onResponse(Call<DetalleTerminadoDiarios> call, Response<DetalleTerminadoDiarios> response) {
+                            Toast.makeText(RegistroDiarios.this, "Se registro correctamente", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(RegistroDiarios.this, MainActivity.class);
 
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            intent.putExtra("fecha",LocalDate.now().toString());
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                intent.putExtra("fecha", LocalDate.now().toString());
+                            }
+                            startActivity(intent);
+
                         }
-                        startActivity(intent);
 
+                        @Override
+                        public void onFailure(Call<DetalleTerminadoDiarios> call, Throwable t) {
+                            Toast.makeText(RegistroDiarios.this, "Algo Salio Mal, Consulta con el Administrador de Sistema", Toast.LENGTH_LONG).show();
+
+                        }
                     }
-
-                    @Override
-                    public void onFailure(Call<DetalleTerminadoDiarios> call, Throwable t) {
-                        Toast.makeText(RegistroDiarios.this, "Algo Salio Mal, Consulta con el Administrador de Sistema", Toast.LENGTH_LONG).show();
-
-                    }
-                }
-        );
+            );
+        } else {
+            Toast.makeText(RegistroDiarios.this, "Vuelva a Escanear el Codigo", Toast.LENGTH_SHORT).show();
+        }
     }
 }

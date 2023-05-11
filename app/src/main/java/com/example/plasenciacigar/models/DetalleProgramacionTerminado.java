@@ -7,6 +7,9 @@ public class DetalleProgramacionTerminado {
     @SerializedName("id")
     @Expose
     private int id;
+    @SerializedName("detid")
+    @Expose
+    private int detid;
     @SerializedName("numero_orden")
     @Expose
     private String numero_orden;
@@ -103,5 +106,13 @@ public class DetalleProgramacionTerminado {
 
     public void setCantidad(String cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public int getDetid() {
+        return detid;
+    }
+
+    public void setDetid(int detid) {
+        this.detid = detid;
     }
 }

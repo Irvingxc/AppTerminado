@@ -1,5 +1,7 @@
 package com.example.plasenciacigar;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import androidx.fragment.app.FragmentResultListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -38,6 +41,7 @@ public class DetalleDiariosMostrar extends Fragment {
     Conexion conexion = new Conexion();
     ListView listView;
     List<DetalleProgramacionTerminado> datos= new ArrayList<DetalleProgramacionTerminado>();
+    DetalleProgramacionTerminado a = new DetalleProgramacionTerminado();
 
     // TODO: Rename and change types of parameters
     private String getFecha;
@@ -66,6 +70,31 @@ public class DetalleDiariosMostrar extends Fragment {
         View view= inflater.inflate(R.layout.fragment_detalle_diarios_mostrar, container, false);
         listView = view.findViewById(R.id.detallediarioslist);
         MostrarFecha(getFecha);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DetalleProgramacionTerminado valor = adapter.getItem(i);
+                AlertDialog.Builder confirmar = new AlertDialog.Builder(getContext());
+                confirmar.setTitle("Procesar");
+                confirmar.setMessage("Estas seguro que deseas eliminar este producto "+valor.getDetid());
+                confirmar.setCancelable(false);
+                confirmar.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        delete(valor);
+                    }
+                });
+
+
+                confirmar.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                confirmar.show();
+                return false;
+            }
+        });
         return view;
     }
 
@@ -90,5 +119,24 @@ public class DetalleDiariosMostrar extends Fragment {
             }
         });
 
+    }
+
+    private void delete(DetalleProgramacionTerminado dd) {
+        Retrofit retrofit = conexion.retrofit();
+        DetalleProgramacionTerminadoApi detalleProgramacionTerminadoApi = retrofit.create(DetalleProgramacionTerminadoApi.class);
+        detalleProgramacionTerminadoApi.delete(String.valueOf(dd.getDetid())).enqueue(new Callback<DetalleProgramacionTerminado>() {
+            @Override
+            public void onResponse(Call<DetalleProgramacionTerminado> call, Response<DetalleProgramacionTerminado> response) {
+                Toast.makeText(getContext(), "Se elimino correctamente", Toast.LENGTH_LONG).show();
+                adapter.remove(dd);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<DetalleProgramacionTerminado> call, Throwable t) {
+                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 }
