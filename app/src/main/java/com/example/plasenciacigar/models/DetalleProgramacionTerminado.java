@@ -16,6 +16,11 @@ public class DetalleProgramacionTerminado {
     @SerializedName("orden")
     @Expose
     private String orden;
+
+    @SerializedName("nombre")
+    @Expose
+    private String nombre;
+
     @SerializedName("item")
     @Expose
     private String item;
@@ -35,6 +40,30 @@ public class DetalleProgramacionTerminado {
     @SerializedName("cantidad")
     @Expose
     private String cantidad;
+
+    @SerializedName("bultos")
+    @Expose
+    private String cantidadbultos;
+
+    @SerializedName("unidades")
+    @Expose
+    private String unidades;
+
+    public String getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(String unidades) {
+        this.unidades = unidades;
+    }
+
+    public String getCantidadbultos() {
+        return cantidadbultos;
+    }
+
+    public void setCantidadbultos(String cantidadbultos) {
+        this.cantidadbultos = cantidadbultos;
+    }
 
     public String getNumero_orden() {
         return numero_orden;
@@ -114,5 +143,13 @@ public class DetalleProgramacionTerminado {
 
     public void setDetid(int detid) {
         this.detid = detid;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

@@ -3,10 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/detallediariosmostrar"
-    tools:context=".DetalleDiariosMostrar">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".ui.inventario.existencia.Existencias">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,18 +11,16 @@
         android:orientation="vertical">
 
         <ListView
-            android:id="@+id/detallediarioslist"
-            android:layout_weight="93"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"/>
-        <TextView
-            android:id="@+id/totalamount"
-            android:textColor="@color/black"
-            android:textAlignment="center"
+            android:id="@+id/existenciasempaque"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="7"
-            android:text=""/>
+            android:layout_weight="0.93"/>
+        <TextView
+            android:id="@+id/amountempaque"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.07"
+            android:textAlignment="center"/>
 
     </LinearLayout>
 

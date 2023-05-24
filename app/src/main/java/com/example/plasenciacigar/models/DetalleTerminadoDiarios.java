@@ -1,10 +1,12 @@
 package com.example.plasenciacigar.models;
 
-public class DetalleTerminadoDiarios {
+public class DetalleTerminadoDiarios{
     private int id;
     private int id_det_progra_term;
     private int id_terminado_diario;
     private Double cantidad;
+    private String bultos;
+    private String unidades;
 
 
     public int getId() {
@@ -37,5 +39,13 @@ public class DetalleTerminadoDiarios {
 
     public void setCantidad(Double cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public void setBultos(String bultos) {
+        this.bultos = bultos;
+    }
+
+    public void setUnidades(String unidades) {
+        this.unidades = unidades;
     }
 }

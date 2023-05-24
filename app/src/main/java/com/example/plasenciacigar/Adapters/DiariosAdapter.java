@@ -36,17 +36,17 @@ public class DiariosAdapter extends ArrayAdapter<DetalleProgramacionTerminado> {
         DetalleProgramacionTerminado d =getItem(position);
         TextView marca = convertView.findViewById(R.id.marca_item);
         TextView vitola = convertView.findViewById(R.id.vitola_item);
-        TextView capa = convertView.findViewById(R.id.capa_item);
-        TextView tipoempaque = convertView.findViewById(R.id.tipo_empaque_item);
         TextView item = convertView.findViewById(R.id.item_item);
         TextView cantidad = convertView.findViewById(R.id.cantidad_item);
 
-        marca.setText(d.getMarca());
-        vitola.setText(d.getVitola());
-        capa.setText(d.getCapa());
-        tipoempaque.setText(d.getTipoempaque());
-        item.setText(d.getItem());
-        cantidad.setText(d.getCantidad());
+        marca.setText(d.getMarca().concat("   ").concat(d.getNombre()));
+        vitola.setText(d.getVitola().concat("   ").concat(d.getCapa().concat("   ").concat(d.getTipoempaque())));
+        item.setText(d.getItem().concat("   ").concat(d.getOrden()).concat("   ").concat(d.getNumero_orden()));
+        if (d.getCantidadbultos()!=null && d.getCantidad()!=null && d.getUnidades()!=null) {
+            cantidad.setText(d.getCantidadbultos().concat("   ").concat(d.getUnidades().concat("   ").concat(d.getCantidad())));
+        }else {
+            cantidad.setText(d.getCantidad());
+        }
         return convertView;
     }
 }

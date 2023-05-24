@@ -24,4 +24,13 @@ public interface DetalleProgramacionTerminadoApi {
 
     @GET("diarios/delete/{id}")
     Call<DetalleProgramacionTerminado> delete(@Path("id") String id);
+
+    @GET("diarios/existenciasempaque")
+    Call<List<DetalleProgramacionTerminado>> drawstock();
+
+    @GET("diarios/mostrardetalle/total/{fecha}")
+    Call<DetalleProgramacionTerminado> amountotal(@Path("fecha") String fecha);
+
+    @GET("diarios/existenciasempaque/total")
+    Call<DetalleProgramacionTerminado> amountotalempaque();
 }

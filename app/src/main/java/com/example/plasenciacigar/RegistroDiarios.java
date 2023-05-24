@@ -13,7 +13,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Layout;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -48,7 +50,8 @@ public class RegistroDiarios extends AppCompatActivity {
     EditText vitola;
     EditText capa;
     EditText tipoempaque;
-
+    EditText bultos;
+    EditText unidadades;
     EditText cantidad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +65,17 @@ public class RegistroDiarios extends AppCompatActivity {
         capa = findViewById(R.id.capa);
         tipoempaque = findViewById(R.id.tipoempaque);
         cantidad = findViewById(R.id.cantidadPuros);
+        bultos = findViewById(R.id.bultos);
+        unidadades = findViewById(R.id.unidades);
+        bultos.addTextChangedListener(textWatcher);
+        unidadades.addTextChangedListener(textWatcher);
         findViewById(R.id.registerAct).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DetalleTerminadoDiarios detalleTerminadoDiarios = new DetalleTerminadoDiarios();
                 detalleTerminadoDiarios.setId_det_progra_term(iddetalleprogramacionterminado);
+                detalleTerminadoDiarios.setBultos(bultos.getText().toString());
+                detalleTerminadoDiarios.setUnidades(unidadades.getText().toString());
                 detalleTerminadoDiarios.setCantidad(Double.parseDouble(cantidad.getText().toString()));
                 Register(detalleTerminadoDiarios);
             }
@@ -74,6 +83,45 @@ public class RegistroDiarios extends AppCompatActivity {
 
         Scanner();
 
+    }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            Calculo();
+        }
+    };
+
+    private void Calculo(){
+        if (!bultos.getText().toString().isEmpty() && !unidadades.getText().toString().isEmpty()) {
+            int resultado =
+                    Integer.parseInt(bultos.getText().toString()) * Integer.parseInt(unidadades.getText().toString());
+            cantidad.setText(String.valueOf(resultado));
+        }
+        if (!bultos.getText().toString().isEmpty() && unidadades.getText().toString().isEmpty()) {
+            int resultado =
+                    Integer.parseInt(bultos.getText().toString()) * 1;
+            cantidad.setText(String.valueOf(resultado));
+        }
+        if (bultos.getText().toString().isEmpty() && !unidadades.getText().toString().isEmpty()) {
+            int resultado =
+                    1 * Integer.parseInt(unidadades.getText().toString());
+            cantidad.setText(String.valueOf(resultado));
+        }
+        if (bultos.getText().toString().isEmpty() && unidadades.getText().toString().isEmpty()) {
+            int resultado =0;
+            cantidad.setText(String.valueOf(resultado));
+        }
     }
 
     private void Scanner(){
@@ -121,6 +169,7 @@ public class RegistroDiarios extends AppCompatActivity {
                         tipoempaque.setText(dd.getTipoempaque());
                         numorden.setText(dd.getNumero_orden());
                         item.setText(dd.getItem());
+                        unidadades.setText(dd.getCantidadbultos());
                     } else {
                         Toast.makeText(RegistroDiarios.this, "Algo Salio Mal, Consulta con el Administrador de Sistema", Toast.LENGTH_LONG).show();
                     }

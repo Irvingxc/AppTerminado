@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plasenciacigar.Adapters.DiariosAdapter;
@@ -35,6 +36,8 @@ import retrofit2.Retrofit;
  * create an instance of this fragment.
  */
 public class DetalleDiariosMostrar extends Fragment {
+    private int amount;
+    TextView totalamount;
     private String result;
     private String fecha;
     private DiariosAdapter adapter;
@@ -69,14 +72,16 @@ public class DetalleDiariosMostrar extends Fragment {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_detalle_diarios_mostrar, container, false);
         listView = view.findViewById(R.id.detallediarioslist);
+        totalamount = view.findViewById(R.id.totalamount);
         MostrarFecha(getFecha);
+        MostarSuma(getFecha);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 DetalleProgramacionTerminado valor = adapter.getItem(i);
                 AlertDialog.Builder confirmar = new AlertDialog.Builder(getContext());
-                confirmar.setTitle("Procesar");
-                confirmar.setMessage("Estas seguro que deseas eliminar este producto "+valor.getDetid());
+                confirmar.setTitle("Eliminar");
+                confirmar.setMessage("Estas seguro que deseas eliminar este producto ");
                 confirmar.setCancelable(false);
                 confirmar.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     @Override
@@ -136,6 +141,25 @@ public class DetalleDiariosMostrar extends Fragment {
             public void onFailure(Call<DetalleProgramacionTerminado> call, Throwable t) {
                 Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_LONG).show();
 
+            }
+        });
+    }
+    private void MostarSuma(String fecha){
+        Retrofit retrofit = conexion.retrofit();
+        DetalleProgramacionTerminadoApi dpta = retrofit.create(DetalleProgramacionTerminadoApi.class);
+        dpta.amountotal(fecha).enqueue(new Callback<DetalleProgramacionTerminado>() {
+            @Override
+            public void onResponse(Call<DetalleProgramacionTerminado> call, Response<DetalleProgramacionTerminado> response) {
+                if (response.isSuccessful()){
+                    amount = Integer.parseInt(response.body().getCantidad());
+                    totalamount.setText(String.valueOf(amount));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DetalleProgramacionTerminado> call, Throwable t) {
+                Toast.makeText(getActivity().getApplicationContext(), String.valueOf(t),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

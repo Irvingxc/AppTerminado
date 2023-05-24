@@ -13,8 +13,7 @@
         android:paddingTop="25dp"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
-        tools:ignore="MissingConstraints"
-        android:background="@drawable/card">
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_marginTop="15dp"
@@ -88,12 +87,35 @@
                 android:layout_height="60dp"
                 android:hint="# Orden"/>
 
-            <EditText
-                android:id="@+id/cantidadPuros"
-                android:layout_width="match_parent"
-                android:numeric="integer"
-                android:layout_height="60dp"
-                android:hint="Cantidad de Puros"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/bultos"
+                    android:layout_width="wrap_content"
+                    android:numeric="integer"
+                    android:layout_height="60dp"
+                    android:hint="Bultos"/>
+
+                <EditText
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/unidades"
+                    android:layout_width="wrap_content"
+                    android:numeric="integer"
+                    android:layout_height="60dp"
+                    android:hint="Unidades"/>
+
+                <EditText
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/cantidadPuros"
+                    android:layout_width="wrap_content"
+                    android:numeric="integer"
+                    android:layout_height="60dp"
+                    android:hint="Total"/>
+
+            </LinearLayout>
 
 
 

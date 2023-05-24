@@ -9,53 +9,52 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center">
-
         <TextView
             android:id="@+id/marca_item"
+            android:layout_marginLeft="1dp"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_marginLeft="1dp"
-            android:text="Marca"
             android:textAlignment="center"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:text="Marca"/>
 
         <ImageView
             android:id="@+id/imagenlogo"
             android:layout_width="50dp"
             android:layout_height="80dp"
-            android:src="@drawable/descarga" />
+            android:src="@drawable/descarga"/>
 
         <TextView
             android:id="@+id/vitola_item"
+            android:layout_below="@+id/marca_item"
+            android:textAlignment="center"
+            android:layout_toRightOf="@+id/imagenlogo"
+            android:layout_marginLeft="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/marca_item"
-            android:layout_marginLeft="1dp"
-            android:layout_toRightOf="@+id/imagenlogo"
-            android:text="Vitola"
-            android:textAlignment="center" />
+            android:text="Vitola"/>
 
         <TextView
             android:id="@+id/item_item"
+            android:layout_below="@id/vitola_item"
+            android:layout_toRightOf="@+id/imagenlogo"
+            android:layout_marginLeft="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/vitola_item"
-            android:layout_marginLeft="1dp"
-            android:layout_toRightOf="@+id/imagenlogo"
-            android:text="INT-H-1292-W"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:text="INT-H-1292-W"/>
 
 
         <TextView
             android:id="@+id/cantidad_item"
+            android:layout_below="@id/item_item"
+            android:layout_toRightOf="@+id/imagenlogo"
+            android:layout_marginLeft="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/item_item"
-            android:layout_marginLeft="1dp"
-            android:layout_toRightOf="@+id/imagenlogo"
-            android:text="5000"
             android:textAlignment="center"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:text="5000"/>
 
 
     </RelativeLayout>
