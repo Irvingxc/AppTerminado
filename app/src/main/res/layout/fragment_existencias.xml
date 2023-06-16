@@ -9,6 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <EditText
+            android:id="@+id/BusquedaMarcas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Buscar por marca"/>
 
         <ListView
             android:id="@+id/existenciasempaque"

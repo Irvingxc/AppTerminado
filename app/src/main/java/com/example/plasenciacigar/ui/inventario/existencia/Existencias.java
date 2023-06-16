@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +32,7 @@ import retrofit2.Retrofit;
 public class Existencias extends Fragment {
     ListView listView;
     TextView amount;
+    EditText filtro;
     Conexion conexion = new Conexion();
     private DiariosAdapter diariosAdapter;
     private List<DetalleProgramacionTerminado> datos= new ArrayList<DetalleProgramacionTerminado>();
@@ -49,15 +53,35 @@ public class Existencias extends Fragment {
         View view=  inflater.inflate(R.layout.fragment_existencias, container, false);
         listView=view.findViewById(R.id.existenciasempaque);
         amount=view.findViewById(R.id.amountempaque);
-        DrawStock();
+        filtro = view.findViewById(R.id.BusquedaMarcas);
+        filtro.addTextChangedListener(vFiltro);
+        DrawStock(" ");
         DrawAmount();
         return view;
     }
 
-    private void DrawStock(){
+    private TextWatcher vFiltro = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            DrawStock(filtro.getText().toString());
+        }
+    };
+
+    private void DrawStock(String marca){
+        DetalleProgramacionTerminado dpt = new DetalleProgramacionTerminado();
+        dpt.setMarca(marca);
         Retrofit retrofit= conexion.retrofit();
         DetalleProgramacionTerminadoApi detalleProgramacionTerminadoApi = retrofit.create(DetalleProgramacionTerminadoApi.class);
-        detalleProgramacionTerminadoApi.drawstock().enqueue(new Callback<List<DetalleProgramacionTerminado>>() {
+        detalleProgramacionTerminadoApi.drawstock(dpt).enqueue(new Callback<List<DetalleProgramacionTerminado>>() {
             @Override
             public void onResponse(Call<List<DetalleProgramacionTerminado>> call, Response<List<DetalleProgramacionTerminado>> response) {
                 if (response.isSuccessful()){
@@ -69,7 +93,7 @@ public class Existencias extends Fragment {
 
             @Override
             public void onFailure(Call<List<DetalleProgramacionTerminado>> call, Throwable t) {
-                Toast.makeText(getActivity().getApplicationContext(), "Algo Salios mal, Consulte con el Administrador de Red.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Algo Salio mal, Consulte con el Administrador de Red.", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -20,7 +20,9 @@ import android.widget.Toast;
 
 import com.example.plasenciacigar.Adapters.DiariosAdapter;
 import com.example.plasenciacigar.Interface.DetalleProgramacionTerminadoApi;
+import com.example.plasenciacigar.Interface.ReporteDiarioApi;
 import com.example.plasenciacigar.models.DetalleProgramacionTerminado;
+import com.example.plasenciacigar.models.Diarios;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -75,31 +77,7 @@ public class DetalleDiariosMostrar extends Fragment {
         totalamount = view.findViewById(R.id.totalamount);
         MostrarFecha(getFecha);
         MostarSuma(getFecha);
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                DetalleProgramacionTerminado valor = adapter.getItem(i);
-                AlertDialog.Builder confirmar = new AlertDialog.Builder(getContext());
-                confirmar.setTitle("Eliminar");
-                confirmar.setMessage("Estas seguro que deseas eliminar este producto ");
-                confirmar.setCancelable(false);
-                confirmar.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        delete(valor);
-                    }
-                });
-
-
-                confirmar.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                });
-                confirmar.show();
-                return false;
-            }
-        });
+        ValidarProcesos(listView, getFecha);
         return view;
     }
 
@@ -124,6 +102,50 @@ public class DetalleDiariosMostrar extends Fragment {
             }
         });
 
+    }
+
+
+    private void ValidarProcesos(ListView listView, String fecha){
+        conexion.retrofit().create(ReporteDiarioApi.class).consultarproceso(fecha).enqueue(new Callback<Diarios>() {
+            @Override
+            public void onResponse(Call<Diarios> call, Response<Diarios> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getFecha() != null) {
+                        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                            @Override
+                            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                DetalleProgramacionTerminado valor = adapter.getItem(i);
+                                AlertDialog.Builder confirmar = new AlertDialog.Builder(getContext());
+                                confirmar.setTitle("Eliminar");
+                                confirmar.setMessage("Estas seguro que deseas eliminar este producto ");
+                                confirmar.setCancelable(false);
+                                confirmar.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        delete(valor);
+                                    }
+                                });
+
+
+                                confirmar.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                    }
+                                });
+                                confirmar.show();
+                                return false;
+                            }
+                        });
+
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Diarios> call, Throwable t) {
+                Toast.makeText(getActivity().getApplicationContext(), "Algo Salio Mal, Consulte con el Administrador de Red",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void delete(DetalleProgramacionTerminado dd) {
